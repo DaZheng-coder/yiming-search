@@ -1,22 +1,31 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+import Home from '@/views/Home'
+import Login from '@/views/Login'
+import User from '@/views/User'
+import Admin from '@/views/Admin'
+import Search from '@/views/Search'
+
+import BaseFunction from '@/components/BaseFunction'
+import AdminManage from '@/components/AdminManage'
+import UserManage from '@/components/UserManage'
 
 Vue.use(VueRouter)
 
 const routes = [
-  {
-    path: '/',
-    name: 'Home',
-    component: Home
-  },
-  {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+  { path: '/', name: 'Home', component: Home },
+  { path: '/user/login', name: 'UserLogin', component: Login },
+  { path: '/user/register', name: 'UserRegister', component: Login },
+  { path: '/admin/login', name: 'AdminLogin', component: Login },
+  { path: '/user', name: 'User', component: User },
+  { path: '/search', name: 'Search', component: Search },
+  { path: '/search/:keyWords', name: 'Search', component: Search },
+  { path: '/admin', name: 'Admin', component: Admin,
+    children: [
+      {path: '/admin/base/function', component: BaseFunction},
+      {path: '/admin/admin/manage', component: AdminManage},
+      {path: '/admin/user/manage', component: UserManage}
+    ]
   }
 ]
 
