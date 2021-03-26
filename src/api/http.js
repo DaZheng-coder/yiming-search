@@ -4,7 +4,7 @@ import {Message} from 'element-ui'
 
 // 进行一些全局配置
 // 公共路由(网络请求地址)
-axios.defaults.baseURL = 'http://search.cn.utools.club/searchProject';
+axios.defaults.baseURL = 'http://backend.cn.utools.club/searchProject';
 // 请求响应超时时间
 axios.defaults.timeout = 10000;
 

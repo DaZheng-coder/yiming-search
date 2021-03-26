@@ -31,7 +31,7 @@ export default {
   methods: {
     toUserOrAdmin () {
       const userLogined = this.user ? true : false
-      const isAdmin = this.user.permission ? true : false
+      const isAdmin = this.user?.permission ? true : false
       if (userLogined) {
         if (isAdmin) {
           this.$router.push('/admin/base/function')
@@ -43,6 +43,7 @@ export default {
           message: '还未登陆，请您登录',
           type: 'error'
         })
+        this.$router.push('/user/login')
       }
     }
   },
