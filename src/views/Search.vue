@@ -8,16 +8,18 @@
       <SearchBar @getResult="getResult"/>
       <div class="search-container-content-main">
         <article>
-          <div v-for="(item,index) in [...resultList].reverse()" :key="item.keyWords" class="search-result-waiting">
-            <span :style="'padding: 0 10px;' + item.done ? '':'color: gray;'">{{item.keyWords}}</span>
-            <el-button 
-              style="width: 100px;height: 40px; display: flex;justify-content:center;align-items:center;" 
-              :type="item.done === 'timeout' ? 'danger' : item.done ? 'success' : 'warning'" 
-              @click="item.done !== 'timeout' && item.done && showResult(resultList.length - index - 1)">
-              <span v-if="item.done">{{item.done === 'timeout' ? '超时' : '显示结果'}}</span>
-              <div v-else><Loading /></div>
-            </el-button>
-          </div>
+          <div class="scroll-frame">
+            <div v-for="(item,index) in [...resultList].reverse()" :key="item.keyWords" class="search-result-waiting">
+              <span style="padding: 0 10px">{{item.keyWords}}</span>
+              <el-button 
+                style="width: 100px;height: 40px; display: flex;justify-content:center;align-items:center;" 
+                :type="item.done === 'timeout' ? 'danger' : item.done ? 'success' : 'warning'" 
+                @click="item.done !== 'timeout' && item.done && showResult(resultList.length - index - 1)">
+                <span v-if="item.done">{{item.done === 'timeout' ? '超时' : '显示结果'}}</span>
+                <div v-else><Loading /></div>
+              </el-button>
+            </div>
+          </div> 
           <div v-if="result.length > 0">
             <div v-for="item in result" :key="item.id" class="search-result-item">
               <a class="search-result-item-a" :href="item.url">{{item.title}}</a>
@@ -187,7 +189,7 @@ export default {
     article {
       width: 700px;
       .search-result-waiting {
-        width: 100%;
+        width: 90%;
         padding: 5px;
         border: 1px solid #ccc;
         background-color: rgb(240, 240, 240);
@@ -224,6 +226,26 @@ export default {
         top: 60px;
       }
     } 
+  }
+}
+.scroll-frame {
+  margin-bottom: 25px;
+  max-height: 300px; 
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: #ccc;
+    -webkit-border-radius: 2em;
+    -moz-border-radius: 2em;
+    border-radius: 2em;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #5f5f5f;
+    -webkit-border-radius: 2em;
+    -moz-border-radius: 2em;
+    border-radius: 2em;
   }
 }
 </style>
